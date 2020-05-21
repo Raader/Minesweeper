@@ -50,10 +50,39 @@ class MineSweeper {
                 };
                 let button = this.buttons[row][col];
                 button.addEventListener("click", () => {
-                    this.play(row, col);
+                    this.openButton(button, row, col);
                 });
             }
         }
+    }
+
+    placeMines() {
+        const grids = [];
+        while (true) {
+            let row = Math.floor((Math.random() * this.height) + 1);
+            let col = Math.floor((Math.random() * this.widht) + 1);
+            let grid = {
+                row: row,
+                col: col
+            }
+            if (!grids.includes(grid)) {
+                grids.push(grid);
+            }
+            if (grids.length === this.mineCount) {
+                break;
+            }
+        }
+        grids.forEach((item) => {
+            this.cells[item.row][item.col].isMine = true;
+        });
+        console.log(this.cells);
+    }
+
+
+    openButton = (button, row, col) => {
+        button.style = "border: 0";
+        button.disabled = "disabled";
+        this.play(row, col);
     }
 
     play = (row, col) => {
