@@ -17,27 +17,18 @@ function generateButtons(height, widht, mineCount, table) {
     }
 }
 
+
+
 let gTable = document.getElementsByClassName("game-table")[0];
 const heightInput = document.querySelector("#heightInput");
 const widhtInput = document.querySelector("#widhtInput");
+const mineInput = document.querySelector("#mineInput");
 const generateButton = document.getElementById("generateButton");
 
-function InitGame() {
-    generateButtons(heightInput.value, widhtInput.value, 0, gTable);
-}
-generateButton.addEventListener("click", InitGame);
-InitGame();
 
 class MineSweeper {
     constructor(width, height, mineCount, buttons) {
-        this.widht = width;
-        this.height = height;
-        this.mineCount = mineCount;
-        this.cells = [];
-        this.buttons = buttons;
-        this.initButtons();
-        this.placeMines();
-        this.calculateMines();
+        this.init(width, height, mineCount, buttons);
     }
 
     initButtons = () => {
@@ -49,7 +40,8 @@ class MineSweeper {
                     col: col,
                     isMine: false,
                     mineCount: 0,
-                    neighbors: []
+                    neighbors: [],
+                    open: false
                 };
                 let button = this.buttons[row][col];
                 button.addEventListener("click", () => {
@@ -111,10 +103,20 @@ class MineSweeper {
     openButton = (button, row, col) => {
         button.style = "border: 0";
         button.disabled = "disabled";
+        this.cells[row][col].open = true;
         if (this.cells[row][col].isMine) {
             button.innerHTML = "X";
         } else {
-            button.innerHTML = this.cells[row][col].mineCount;
+            button.innerHTML = this.cells[row][col].mineCount === 0 ? "" : this.cells[row][col].mineCount;
+            let cell = this.cells[row][col];
+            if (cell.mineCount === 0) {
+                for (let neighbor of cell.neighbors) {
+                    let b = this.buttons[neighbor.row][neighbor.col];
+                    if (!neighbor.isMine && !neighbor.open) {
+                        this.openButton(b, neighbor.row, neighbor.col);
+                    }
+                }
+            }
         }
 
         //this.play(row, col);
@@ -123,6 +125,23 @@ class MineSweeper {
     play = (row, col) => {
         console.log(this.cells[row][col]);
     }
-}
 
-const mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, 40, buttons);
+    init(width, height, mineCount, buttons) {
+        this.widht = width;
+        this.height = height;
+        this.mineCount = mineCount;
+        this.cells = [];
+        this.buttons = buttons;
+        this.initButtons();
+        this.placeMines();
+        this.calculateMines();
+    }
+}
+let mineSweeper;
+
+function InitGame() {
+    generateButtons(heightInput.value, widhtInput.value, mineInput.value, gTable);
+    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, 40, buttons);
+}
+generateButton.addEventListener("click", InitGame);
+InitGame();
