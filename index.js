@@ -36,6 +36,8 @@ class MineSweeper {
         this.cells = [];
         this.buttons = buttons;
         this.initButtons();
+        this.placeMines();
+        this.calculateMines();
     }
 
     initButtons = () => {
@@ -46,7 +48,8 @@ class MineSweeper {
                     row: row,
                     col: col,
                     isMine: false,
-                    mineCount: 0
+                    mineCount: 0,
+                    neighbors: []
                 };
                 let button = this.buttons[row][col];
                 button.addEventListener("click", () => {
@@ -56,33 +59,65 @@ class MineSweeper {
         }
     }
 
-    placeMines() {
+    placeMines = () => {
         const grids = [];
         while (true) {
-            let row = Math.floor((Math.random() * this.height) + 1);
-            let col = Math.floor((Math.random() * this.widht) + 1);
-            let grid = {
-                row: row,
-                col: col
-            }
-            if (!grids.includes(grid)) {
-                grids.push(grid);
+            let index = Math.floor((Math.random() * (this.height * this.widht)));
+            if (!grids.includes(index)) {
+                grids.push(index);
             }
             if (grids.length === this.mineCount) {
                 break;
             }
         }
-        grids.forEach((item) => {
-            this.cells[item.row][item.col].isMine = true;
-        });
-        console.log(this.cells);
+        for (let grid of grids) {
+            let row = Math.floor(grid / this.widht);
+            let col = grid % parseInt(this.widht);
+            this.cells[row][col].isMine = true;
+        }
     }
+    calculateMines = () => {
+        for (let row = 0; row < this.height; row++) {
+            for (let col = 0; col < this.widht; col++) {
+                let cell = this.cells[row][col];
+                if (cell.isMine) {
+                    continue;
+                }
+                let count = 0;
+                let neighbors = [
+                    this.cells[row + 1] ? this.cells[row + 1][col] : undefined,
+                    this.cells[row] ? this.cells[row][col + 1] : undefined,
+                    this.cells[row + 1] ? this.cells[row + 1][col + 1] : undefined,
+                    this.cells[row - 1] ? this.cells[row - 1][col] : undefined,
+                    this.cells[row] ? this.cells[row][col - 1] : undefined,
+                    this.cells[row - 1] ? this.cells[row - 1][col - 1] : undefined,
+                    this.cells[row + 1] ? this.cells[row + 1][col - 1] : undefined,
+                    this.cells[row - 1] ? this.cells[row - 1][col + 1] : undefined,
+                ]
+                for (let neighbor of neighbors) {
+                    if (neighbor) {
+                        cell.neighbors.push(neighbor);
+                        if (neighbor.isMine) {
+                            count++;
 
+                        }
+                    }
+                }
+                cell.mineCount = count;
+            }
+        }
+    }
 
     openButton = (button, row, col) => {
         button.style = "border: 0";
         button.disabled = "disabled";
-        this.play(row, col);
+        if (this.cells[row][col].isMine) {
+            button.innerHTML = "X";
+        } else {
+            button.innerHTML = this.cells[row][col].mineCount;
+        }
+
+        //this.play(row, col);
     }
 
     play = (row, col) => {
@@ -90,4 +125,4 @@ class MineSweeper {
     }
 }
 
-const mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, 0, buttons);
+const mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, 40, buttons);
