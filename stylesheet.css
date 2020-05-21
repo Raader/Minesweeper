@@ -1,14 +1,12 @@
 body {
-    background-color: floralwhite;
-}
-
-header {
-    text-align: center;
-    font-size: 5vw;
-    margin-bottom: 0;
+    background-color: azure;
 }
 
 .button-bar {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    margin-top: 0;
     margin-bottom: 0;
 }
 
@@ -16,10 +14,11 @@ header {
     position: fixed;
     margin: 0;
     width: 80%;
-    height: 70%;
+    height: 80%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border: 3px solid aquamarine;
 }
 
 .game-table {
@@ -27,13 +26,15 @@ header {
     width: 100%;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    height: 100%;
-    border: 3px solid honeydew;
+    transform: translate(-50%, -54%);
+    height: 90%;
+    background-color: transparent;
+    margin-top: 0;
+    border-spacing: 0;
 }
 
 .game-button {
-    background-color: honeydew;
+    background-color: aliceblue;
     outline: 0;
     border-color: mintcream;
     width: 100%;
@@ -43,4 +44,157 @@ header {
 .option-button {
     background-color: azure;
     border-color: mintcream;
+    outline: 0;
+    height: 3vh;
+    margin-left: 1vw;
+    margin: auto;
+    width: 5vw;
+    color: aqua;
+}
+
+.option-input {
+    background-color: azure;
+    border-color: mintcream;
+    height: 2vh;
+    margin: auto;
+    width: 4vw;
+}
+
+.option-label {
+    font-size: 1.6vw;
+    font-weight: bold;
+    color: aqua;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+header {
+    text-align: center;
+    font-size: 4.5vw;
+    margin-bottom: 0;
+    margin: 0;
 }
