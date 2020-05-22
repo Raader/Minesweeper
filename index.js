@@ -34,7 +34,8 @@ function InitGame() {
         return;
     }
     generateButtons(heightInput.value, widhtInput.value, mineInput.value, gTable);
-    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), buttons, (result) => {
+
+    function onGameOver(result) {
         if (result) {
             alert("Lose");
             InitGame();
@@ -42,12 +43,15 @@ function InitGame() {
             alert("win");
             InitGame();
         }
-    }, (row, col, text) => {
+    }
+
+    function onCellOpen(row, col, text) {
         let button = buttons[row][col];
         button.innerHTML = text;
         button.style = "border: 0";
         button.disabled = "disabled";
-    });
+    }
+    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), buttons, onGameOver, onCellOpen);
 }
 
 generateButton.addEventListener("click", InitGame);
