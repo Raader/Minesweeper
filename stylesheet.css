@@ -1,5 +1,5 @@
 body {
-    background-color: azure;
+    background-color: gainsboro;
 }
 
 .button-bar {
@@ -18,7 +18,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 3px solid aquamarine;
+    border: 3px dotted black;
 }
 
 .game-table {
@@ -45,28 +45,35 @@ body {
 }
 
 .option-button {
-    background-color: azure;
+    vertical-align: top;
+    background-color: lightgray;
     border-color: mintcream;
     outline: 0;
     height: 3vh;
     margin-left: 1vw;
     margin: auto;
     width: 5vw;
-    color: aqua;
+    color: black;
+    font-size: 1vw;
+    font-weight: bold;
 }
 
 .option-input {
-    background-color: azure;
+    vertical-align: top;
+    background-color: lightgray;
     border-color: mintcream;
-    height: 2vh;
     margin: auto;
     width: 4vw;
+    height: 3vh;
+    font-size: 1vw;
 }
 
 .option-label {
+    vertical-align: top;
     font-size: 1.6vw;
-    font-weight: bold;
-    color: aqua;
+    font-weight: bolder;
+    color: black;
+    font-family: cursive;
 }
 
 html,
