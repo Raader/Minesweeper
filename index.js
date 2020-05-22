@@ -27,12 +27,15 @@ const generateButton = document.getElementById("generateButton");
 
 
 class MineSweeper {
-    constructor(width, height, mineCount, buttons) {
+    constructor(width, height, mineCount, buttons, gameOverCallback) {
         this.widht = width;
         this.height = height;
         this.mineCount = mineCount;
         this.cells = [];
         this.buttons = buttons;
+        this.gameOverCallback = gameOverCallback;
+        this.openCellCount = 0;
+        this.gameOver = false;
         this.initButtons();
         this.placeMines();
         this.calculateMines();
@@ -113,7 +116,11 @@ class MineSweeper {
         this.cells[row][col].open = true;
         if (this.cells[row][col].isMine) {
             button.innerHTML = "X";
+            this.gameOver = true;
+            this.gameOverCallback(true);
+            return;
         } else {
+            this.openCellCount++;
             button.innerHTML = this.cells[row][col].mineCount === 0 ? "" : this.cells[row][col].mineCount;
             let cell = this.cells[row][col];
             if (cell.mineCount === 0) {
@@ -125,8 +132,10 @@ class MineSweeper {
                 }
             }
         }
-
-        //this.play(row, col);
+        if (this.openCellCount >= (this.widht * this.height) - this.mineCount && !this.gameOver) {
+            this.gameOver = true;
+            this.gameOverCallback(false);
+        }
     }
 
     play = (row, col) => {
@@ -137,7 +146,15 @@ let mineSweeper;
 
 function InitGame() {
     generateButtons(heightInput.value, widhtInput.value, mineInput.value, gTable);
-    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), buttons);
+    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), buttons, (result) => {
+        if (result) {
+            alert("Lose");
+            InitGame();
+        } else {
+            alert("win");
+            InitGame();
+        }
+    });
 }
 generateButton.addEventListener("click", InitGame);
 InitGame();
