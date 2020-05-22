@@ -1,6 +1,6 @@
 const buttons = [];
 
-function generateButtons(height, widht, mineCount, table) {
+function generateButtons(height, widht, table) {
     table.innerHTML = "";
     console.log("generating");
     for (let i = 0; i < height; i++) {
@@ -33,7 +33,7 @@ function InitGame() {
         alert("field must be at least 1 row and 1 column");
         return;
     }
-    generateButtons(heightInput.value, widhtInput.value, mineInput.value, gTable);
+    generateButtons(heightInput.value, widhtInput.value, gTable);
 
     function onGameOver(result) {
         if (result) {
@@ -51,7 +51,14 @@ function InitGame() {
         button.style = "border: 0";
         button.disabled = "disabled";
     }
-    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), buttons, onGameOver, onCellOpen);
+    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), onGameOver, onCellOpen);
+    for (let row = 0; row < mineSweeper.height; row++) {
+        for (let col = 0; col < mineSweeper.widht; col++) {
+            buttons[row][col].addEventListener("click", () => {
+                mineSweeper.openButton(row, col)
+            })
+        }
+    }
 }
 
 generateButton.addEventListener("click", InitGame);
