@@ -28,7 +28,14 @@ const generateButton = document.getElementById("generateButton");
 
 class MineSweeper {
     constructor(width, height, mineCount, buttons) {
-        this.init(width, height, mineCount, buttons);
+        this.widht = width;
+        this.height = height;
+        this.mineCount = mineCount;
+        this.cells = [];
+        this.buttons = buttons;
+        this.initButtons();
+        this.placeMines();
+        this.calculateMines();
     }
 
     initButtons = () => {
@@ -125,23 +132,12 @@ class MineSweeper {
     play = (row, col) => {
         console.log(this.cells[row][col]);
     }
-
-    init(width, height, mineCount, buttons) {
-        this.widht = width;
-        this.height = height;
-        this.mineCount = mineCount;
-        this.cells = [];
-        this.buttons = buttons;
-        this.initButtons();
-        this.placeMines();
-        this.calculateMines();
-    }
 }
 let mineSweeper;
 
 function InitGame() {
     generateButtons(heightInput.value, widhtInput.value, mineInput.value, gTable);
-    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, 40, buttons);
+    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), buttons);
 }
 generateButton.addEventListener("click", InitGame);
 InitGame();
