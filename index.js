@@ -48,7 +48,10 @@ function InitGame() {
     function onCellOpen(row, col, text) {
         let button = buttons[row][col];
         button.innerHTML = text;
-        button.style = "border: 0";
+        const colors = ["Blue", "orange", "red"]
+        const cIndex = parseInt(text) - 1;
+        let color = cIndex != NaN && cIndex < colors.length ? colors[cIndex] : "black";
+        button.style = `border: 0; color: ${color}`;
         button.disabled = "disabled";
     }
     mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), onGameOver, onCellOpen);
