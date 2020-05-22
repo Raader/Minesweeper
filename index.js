@@ -17,14 +17,11 @@ function generateButtons(height, widht, mineCount, table) {
     }
 }
 
-
-
 let gTable = document.getElementsByClassName("game-table")[0];
 const heightInput = document.querySelector("#heightInput");
 const widhtInput = document.querySelector("#widhtInput");
 const mineInput = document.querySelector("#mineInput");
 const generateButton = document.getElementById("generateButton");
-
 
 let mineSweeper;
 
@@ -45,7 +42,13 @@ function InitGame() {
             alert("win");
             InitGame();
         }
+    }, (row, col, text) => {
+        let button = buttons[row][col];
+        button.innerHTML = text;
+        button.style = "border: 0";
+        button.disabled = "disabled";
     });
 }
+
 generateButton.addEventListener("click", InitGame);
 InitGame();

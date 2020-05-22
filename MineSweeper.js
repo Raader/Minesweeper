@@ -1,5 +1,5 @@
 class MineSweeper {
-    constructor(width, height, mineCount, buttons, gameOverCallback) {
+    constructor(width, height, mineCount, buttons, gameOverCallback, onCellOpen) {
         this.widht = width;
         this.height = height;
         this.mineCount = mineCount;
@@ -8,6 +8,7 @@ class MineSweeper {
         this.gameOverCallback = gameOverCallback;
         this.openCellCount = 0;
         this.gameOver = false;
+        this.onCellOpen = onCellOpen;
         this.initButtons();
         this.placeMines();
         this.calculateMines();
@@ -79,17 +80,15 @@ class MineSweeper {
         }
     };
     openButton = (button, row, col) => {
-        button.style = "border: 0";
-        button.disabled = "disabled";
         this.cells[row][col].open = true;
         if (this.cells[row][col].isMine) {
-            button.innerHTML = "X";
+            this.onCellOpen(row, col, "X")
             this.gameOver = true;
             this.gameOverCallback(true);
             return;
         } else {
             this.openCellCount++;
-            button.innerHTML = this.cells[row][col].mineCount === 0 ? "" : this.cells[row][col].mineCount;
+            this.onCellOpen(row, col, this.cells[row][col].mineCount === 0 ? "" : this.cells[row][col].mineCount);
             let cell = this.cells[row][col];
             if (cell.mineCount === 0) {
                 for (let neighbor of cell.neighbors) {
