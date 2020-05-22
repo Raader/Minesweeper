@@ -29,6 +29,13 @@ const generateButton = document.getElementById("generateButton");
 let mineSweeper;
 
 function InitGame() {
+    if (parseInt(mineInput.value) > (heightInput.value * widhtInput.value)) {
+        alert("can't generate more than width * height mines");
+        return
+    } else if (heightInput.value < heightInput.min || widhtInput.value < widhtInput.min) {
+        alert("field must be at least 1 row and 1 column");
+        return;
+    }
     generateButtons(heightInput.value, widhtInput.value, mineInput.value, gTable);
     mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), buttons, (result) => {
         if (result) {
