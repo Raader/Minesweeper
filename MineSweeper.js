@@ -77,7 +77,7 @@ class MineSweeper {
     openButton = (row, col) => {
         this.cells[row][col].open = true;
         if (this.cells[row][col].isMine) {
-            this.onCellOpen(row, col, "X")
+            this.onCellOpen(row, col, "💣")
             this.gameOver = true;
             this.gameOverCallback(true);
             return;

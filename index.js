@@ -60,6 +60,13 @@ function InitGame() {
             buttons[row][col].addEventListener("click", () => {
                 mineSweeper.openButton(row, col)
             })
+            buttons[row][col].addEventListener("contextmenu", (e) => {
+                e.preventDefault();
+                if (!mineSweeper.cells[row][col].open) {
+                    buttons[row][col].innerHTML = buttons[row][col].innerHTML === "🚩" ? "" : "🚩";
+                }
+                return false;
+            }, false)
         }
     }
 }
