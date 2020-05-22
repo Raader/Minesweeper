@@ -45,20 +45,23 @@ body {
     padding: 0;
     margin: 0;
     vertical-align: top;
+    font-size: 1vw;
+    font-weight: bold;
 }
 
 .option-button {
     vertical-align: top;
     background-color: lightgray;
-    border-color: mintcream;
+    border-color: silver;
     outline: 0;
-    height: 3vh;
+    height: 3.6vh;
     margin-left: 1vw;
     margin: auto;
-    width: 5vw;
+    width: 6vw;
     color: dimgray;
     font-size: 1vw;
-    font-weight: bold;
+    font-weight: bolder;
+    font-family: cursive;
 }
 
 .option-input {
@@ -68,7 +71,9 @@ body {
     margin: auto;
     width: 4vw;
     height: 3vh;
-    font-size: 1vw;
+    font-size: 1.2vw;
+    color: dimgray;
+    font-weight: bold;
 }
 
 .option-label {
