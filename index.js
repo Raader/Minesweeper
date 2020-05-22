@@ -56,7 +56,7 @@ function InitGame() {
         const colors = ["Blue", "orange", "red"]
         const cIndex = parseInt(text) - 1;
         let color = cIndex != NaN && cIndex < colors.length ? colors[cIndex] : "black";
-        button.style = `border: 1px solid teal; color: ${color};`;
+        button.style = `border: 1px solid lightseagreen; color: ${color};`;
         if (mineSweeper.cells[row][col].isMine) {
             button.style.backgroundColor = "crimson";
         }
