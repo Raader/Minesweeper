@@ -1,5 +1,5 @@
 body {
-    background-color: gainsboro;
+    background-color: mediumaquamarine;
 }
 
 .button-bar {
@@ -11,6 +11,7 @@ body {
 }
 
 .game-area {
+    background-color: gainsboro;
     position: fixed;
     margin: 0;
     width: 80%;
@@ -18,7 +19,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 3px dotted black;
+    border: 6px dotted teal;
 }
 
 .game-table {
@@ -33,9 +34,9 @@ body {
 }
 
 .game-button {
-    background-color: aliceblue;
+    background-color: mediumaquamarine;
     outline: 0;
-    border-color: mintcream;
+    border-color: lightseagreen;
     width: 25px;
     height: 25px;
     box-sizing: border-box;
@@ -204,7 +205,8 @@ q:after {
 
 header {
     text-align: center;
-    font-size: 4.5vw;
+    font-size: 4vw;
     margin-bottom: 0;
     margin: 0;
+    font-weight: bold;
 }
