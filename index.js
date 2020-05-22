@@ -36,12 +36,17 @@ function InitGame() {
     generateButtons(heightInput.value, widhtInput.value, gTable);
 
     function onGameOver(result) {
+        const delay = 250;
         if (result) {
-            alert("Lose");
-            InitGame();
+            setTimeout(() => {
+                alert("Lose");
+                InitGame();
+            }, delay);
         } else {
-            alert("win");
-            InitGame();
+            setTimeout(() => {
+                alert("Win");
+                InitGame();
+            }, delay);
         }
     }
 
@@ -51,7 +56,10 @@ function InitGame() {
         const colors = ["Blue", "orange", "red"]
         const cIndex = parseInt(text) - 1;
         let color = cIndex != NaN && cIndex < colors.length ? colors[cIndex] : "black";
-        button.style = `border: 0; color: ${color}`;
+        button.style = `border: 1px solid teal; color: ${color};`;
+        if (mineSweeper.cells[row][col].isMine) {
+            button.style.backgroundColor = "crimson";
+        }
         button.disabled = "disabled";
     }
     mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), onGameOver, onCellOpen);
