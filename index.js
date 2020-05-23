@@ -30,8 +30,13 @@ function InitGame() {
         alert("can't generate more than width * height mines");
         return
     } else if ((heightInput.value < parseInt(heightInput.min) || heightInput.value > parseInt(heightInput.max)) ||
-        (widhtInput.value < parseInt(widhtInput.min) || widhtInput.value > parseInt(widhtInput.max))) {
-        alert(`field must be at least ${heightInput.min} tall and ${widhtInput.min} wide`);
+        (widhtInput.value < parseInt(widhtInput.min) || widhtInput.value > parseInt(widhtInput.max)) ||
+        (mineInput.value < parseInt(mineInput.min) || mineInput.value > parseInt(mineInput.max))) {
+        //alert(`field must be at least ${heightInput.min} tall and ${widhtInput.min} wide`);
+        alert(`values must be within these ranges.
+            width:${widhtInput.min}-${widhtInput.max} 
+            height:${heightInput.min}-${heightInput.max} 
+            mine count:${mineInput.min}-${mineInput.max}`);
         return;
     }
     generateButtons(heightInput.value, widhtInput.value, gTable);
