@@ -58,7 +58,7 @@ function InitGame() {
         let color = cIndex != NaN && cIndex < colors.length ? colors[cIndex] : "black";
         button.style.color = color;
         if (mineSweeper.cells[row][col].isMine) {
-            button.style.backgroundColor = "crimson";
+            button.style.backgroundColor = "#EC7063";
         }
         button.disabled = "disabled";
     }
