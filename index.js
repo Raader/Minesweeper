@@ -29,8 +29,9 @@ function InitGame() {
     if (parseInt(mineInput.value) > (heightInput.value * widhtInput.value)) {
         alert("can't generate more than width * height mines");
         return
-    } else if (heightInput.value < heightInput.min || widhtInput.value < widhtInput.min) {
-        alert("field must be at least 1 row and 1 column");
+    } else if ((heightInput.value < parseInt(heightInput.min) || heightInput.value > parseInt(heightInput.max)) ||
+        (widhtInput.value < parseInt(widhtInput.min) || widhtInput.value > parseInt(widhtInput.max))) {
+        alert(`field must be at least ${heightInput.min} tall and ${widhtInput.min} wide`);
         return;
     }
     generateButtons(heightInput.value, widhtInput.value, gTable);
