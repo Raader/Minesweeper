@@ -39,6 +39,7 @@ body {
     background-color: mediumaquamarine;
     outline: 0;
     border-color: lightseagreen;
+    border-style: dashed;
     width: 25px;
     height: 25px;
     box-sizing: border-box;
@@ -47,6 +48,13 @@ body {
     vertical-align: top;
     font-size: 0.85vw;
     font-weight: bold;
+}
+
+.game-button:disabled {
+    background-color: lightgray;
+    border-width: 1px;
+    border-style: solid;
+    border-color: silver;
 }
 
 .option-button {
