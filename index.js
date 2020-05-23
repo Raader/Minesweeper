@@ -26,6 +26,7 @@ const generateButton = document.getElementById("generateButton");
 let mineSweeper;
 
 function InitGame() {
+    mineSweeper = null;
     if (parseInt(mineInput.value) > (heightInput.value * widhtInput.value)) {
         alert("can't generate more than width * height mines");
         return
@@ -68,19 +69,30 @@ function InitGame() {
         }
         button.disabled = "disabled";
     }
-    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), onGameOver, onCellOpen);
-    for (let row = 0; row < mineSweeper.height; row++) {
-        for (let col = 0; col < mineSweeper.widht; col++) {
+
+    function initContextMenus() {
+
+    }
+
+    for (let row = 0; row < heightInput.value; row++) {
+        for (let col = 0; col < widhtInput.value; col++) {
             buttons[row][col].addEventListener("click", () => {
-                mineSweeper.openButton(row, col)
-            })
+                console.log("click");
+                if (mineSweeper) {
+                    mineSweeper.openButton(row, col);
+                } else {
+                    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), onGameOver, onCellOpen, {
+                        row: row,
+                        col: col
+                    });
+                    mineSweeper.openButton(row, col);
+                }
+            });
             buttons[row][col].addEventListener("contextmenu", (e) => {
                 e.preventDefault();
-                if (!mineSweeper.cells[row][col].open) {
-                    buttons[row][col].innerHTML = buttons[row][col].innerHTML === "🚩" ? "" : "🚩";
-                }
+                buttons[row][col].innerHTML = buttons[row][col].innerHTML === "🚩" ? "" : "🚩";
                 return false;
-            }, false)
+            }, false);
         }
     }
 }

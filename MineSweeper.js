@@ -1,5 +1,5 @@
 class MineSweeper {
-    constructor(width, height, mineCount, gameOverCallback, onCellOpen) {
+    constructor(width, height, mineCount, gameOverCallback, onCellOpen, forbiddenCell) {
         this.widht = width;
         this.height = height;
         this.mineCount = mineCount;
@@ -8,6 +8,7 @@ class MineSweeper {
         this.openCellCount = 0;
         this.gameOver = false;
         this.onCellOpen = onCellOpen;
+        this.forbiddenCell = forbiddenCell;
         this.initButtons();
         this.placeMines();
         this.calculateMines();
@@ -29,9 +30,10 @@ class MineSweeper {
     };
     placeMines = () => {
         const grids = [];
+        const fb = this.forbiddenCell.row * this.height + this.forbiddenCell.col;
         while (true) {
             let index = Math.floor((Math.random() * (this.height * this.widht)));
-            if (!grids.includes(index)) {
+            if (!grids.includes(index) && index !== fb) {
                 grids.push(index);
             }
             if (grids.length === this.mineCount) {
