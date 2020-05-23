@@ -85,5 +85,26 @@ function InitGame() {
     }
 }
 
+function changeInputValues(width, height, mineCount) {
+    heightInput.value = height;
+    widhtInput.value = width;
+    mineInput.value = mineCount;
+}
+const easyButton = document.querySelector("#easy");
+const normalButton = document.querySelector("#normal");
+const hardButton = document.querySelector("#hard");
+const extremeButton = document.querySelector("#extreme");
 generateButton.addEventListener("click", InitGame);
+easyButton.addEventListener("click", () => {
+    changeInputValues(9, 9, 10)
+});
+normalButton.addEventListener("click", () => {
+    changeInputValues(16, 16, 40)
+});
+hardButton.addEventListener("click", () => {
+    changeInputValues(30, 16, 99)
+});
+extremeButton.addEventListener("click", () => {
+    changeInputValues(widhtInput.max, heightInput.max, mineInput.max)
+});
 InitGame();
