@@ -50,11 +50,17 @@ body {
     font-weight: bold;
 }
 
-.game-button:disabled {
+.game-button:disabled,
+.game-button:disabled:hover {
     background-color: lightgray;
     border-width: 1px;
     border-style: solid;
     border-color: silver;
+
+}
+
+.game-button:hover {
+    background-color: #6ED8B4;
 }
 
 .option-button {
