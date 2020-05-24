@@ -29,23 +29,49 @@ class MineSweeper {
         }
     };
     placeMines = () => {
-        const grids = [];
+        //const grids = [];
         const fb = this.forbiddenCell.row * this.height + this.forbiddenCell.col;
-        while (true) {
-            let index = Math.floor((Math.random() * (this.height * this.widht)));
-            if (!grids.includes(index) && index !== fb) {
-                grids.push(index);
-            }
-            if (grids.length === this.mineCount) {
-                break;
+        const fbRow = this.forbiddenCell.row;
+        const fbCol = this.forbiddenCell.col;
+        const fbs = [];
+        fbs.push(fb);
+        for (let nb of this.getNeighbors(fbRow, fbCol)) {
+            fbs.push(nb.row * this.height + nb.col);
+        }
+        console.log(fbs);
+        const mineLoop = () => {
+            const grids = []
+            while (true) {
+                let index = Math.floor((Math.random() * (this.height * this.widht)));
+                if (!grids.includes(index) && !fbs.includes(index)) {
+                    grids.push(index);
+                }
+                if (grids.length === this.mineCount) {
+                    return grids;
+                }
             }
         }
+        const grids = mineLoop();
+
         for (let grid of grids) {
             let row = Math.floor(grid / this.widht);
             let col = grid % parseInt(this.widht);
             this.cells[row][col].isMine = true;
         }
     };
+    getNeighbors = (row, col) => {
+        let neighbors = [
+            this.cells[row + 1] ? this.cells[row + 1][col] : undefined,
+            this.cells[row] ? this.cells[row][col + 1] : undefined,
+            this.cells[row + 1] ? this.cells[row + 1][col + 1] : undefined,
+            this.cells[row - 1] ? this.cells[row - 1][col] : undefined,
+            this.cells[row] ? this.cells[row][col - 1] : undefined,
+            this.cells[row - 1] ? this.cells[row - 1][col - 1] : undefined,
+            this.cells[row + 1] ? this.cells[row + 1][col - 1] : undefined,
+            this.cells[row - 1] ? this.cells[row - 1][col + 1] : undefined,
+        ];
+        return neighbors;
+    }
     calculateMines = () => {
         for (let row = 0; row < this.height; row++) {
             for (let col = 0; col < this.widht; col++) {
