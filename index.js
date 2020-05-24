@@ -44,6 +44,13 @@ function InitGame() {
 
     function onGameOver(result) {
         const delay = 250;
+        for (let row = 0; row < mineSweeper.height; row++) {
+            for (let col = 0; col < mineSweeper.widht; col++) {
+                if (mineSweeper.cells[row][col].isMine) {
+                    buttons[row][col].style.backgroundColor = "red";
+                }
+            }
+        }
         if (result) {
             setTimeout(() => {
                 alert("Lose");
@@ -95,6 +102,7 @@ function InitGame() {
             }, false);
         }
     }
+
 }
 
 function changeInputValues(width, height, mineCount) {

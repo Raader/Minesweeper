@@ -29,35 +29,50 @@ class MineSweeper {
         }
     };
     placeMines = () => {
-        //const grids = [];
+        const indexes = [];
         const fb = this.forbiddenCell.row * this.height + this.forbiddenCell.col;
         const fbRow = this.forbiddenCell.row;
         const fbCol = this.forbiddenCell.col;
-        const fbs = [];
-        fbs.push(fb);
-        for (let nb of this.getNeighbors(fbRow, fbCol)) {
-            fbs.push(nb.row * this.height + nb.col);
-        }
-        console.log(fbs);
-        const mineLoop = () => {
-            const grids = []
-            while (true) {
-                let index = Math.floor((Math.random() * (this.height * this.widht)));
-                if (!grids.includes(index) && !fbs.includes(index)) {
-                    grids.push(index);
+        const fbs = [fb];
+        const fcs = [this.forbiddenCell]
+        this.getNeighbors(fbRow, fbCol).forEach((item) => {
+            if (item) {
+                fbs.push((item.row * this.height) + item.col);
+            }
+        });
+        this.getNeighbors(fbRow, fbCol).forEach((item) => {
+            fcs.push(item);
+        })
+        console.log(fcs);
+        const placeMine = () => {
+            function check(row, col) {
+                for (let cl of fcs) {
+                    if (cl.row === row && cl.col === col) {
+                        return true;
+                    }
                 }
-                if (grids.length === this.mineCount) {
-                    return grids;
+                return false;
+            }
+            while (true) {
+                let index = Math.floor(Math.random() * (this.height * this.widht));
+                let row = Math.floor(index / parseInt(this.widht));
+                let col = index % parseInt(this.widht);
+                if (check(row, col)) {
+                    continue;
+                }
+                if (!this.cells[row][col].isMine) {
+                    this.cells[row][col].isMine = true;
+                    break;
                 }
             }
         }
-        const grids = mineLoop();
+        for (let i = 0; i < this.mineCount; i++) {
 
-        for (let grid of grids) {
-            let row = Math.floor(grid / this.widht);
-            let col = grid % parseInt(this.widht);
-            this.cells[row][col].isMine = true;
+            placeMine();
         }
+        //console.log(this.forbiddenCell);
+        //console.log(this.getNeighbors(fbRow, fbCol));
+
     };
     getNeighbors = (row, col) => {
         let neighbors = [
