@@ -57,7 +57,7 @@ class MineSweeper {
                 let index = Math.floor(Math.random() * (this.height * this.widht));
                 let row = Math.floor(index / parseInt(this.widht));
                 let col = index % parseInt(this.widht);
-                if (check(row, col)) {
+                if (((this.widht * this.height) - this.mineCount > 8) && check(row, col)) {
                     continue;
                 }
                 if (!this.cells[row][col].isMine) {

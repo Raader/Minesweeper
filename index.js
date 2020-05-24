@@ -47,7 +47,9 @@ function InitGame() {
         for (let row = 0; row < mineSweeper.height; row++) {
             for (let col = 0; col < mineSweeper.widht; col++) {
                 if (mineSweeper.cells[row][col].isMine) {
-                    buttons[row][col].style.backgroundColor = "red";
+                    buttons[row][col].disabled = "disabled";
+                    buttons[row][col].innerHTML = "💣";
+                    buttons[row][col].style.backgroundColor = "#EC7063";
                 }
             }
         }
