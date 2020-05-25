@@ -61,13 +61,13 @@ function InitGame() {
         }
         if (result) {
             setTimeout(() => {
-                alert("Lose");
-                InitGame();
+                modal.style.display = "block";
+                modalText.innerHTML = "Lose";
             }, delay);
         } else {
             setTimeout(() => {
-                alert("Win");
-                InitGame();
+                modal.style.display = "block";
+                modalText.innerHTML = "Lose";
             }, delay);
         }
     }
@@ -132,3 +132,17 @@ extremeButton.addEventListener("click", () => {
     changeInputValues(widhtInput.max, heightInput.max, mineInput.max)
 });
 InitGame();
+
+const modal = document.querySelector("#gameOverMenu");
+const modalText = document.querySelector("#modal-text");
+const retryButton = document.querySelector("#retryButton");
+window.onclick = (event) => {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        InitGame();
+    }
+}
+retryButton.addEventListener("click", () => {
+    modal.style.display = "none";
+    InitGame()
+})
