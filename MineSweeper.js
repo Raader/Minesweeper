@@ -29,25 +29,16 @@ class MineSweeper {
         }
     };
     placeMines = () => {
-        const indexes = [];
-        const fb = this.forbiddenCell.row * this.height + this.forbiddenCell.col;
-        const fbRow = this.forbiddenCell.row;
-        const fbCol = this.forbiddenCell.col;
-        const fbs = [fb];
-        const fcs = [this.forbiddenCell]
-        this.getNeighbors(fbRow, fbCol).forEach((item) => {
+        const forbiddenCells = [this.forbiddenCell]
+        this.getNeighbors(this.forbiddenCell.row, this.forbiddenCell.col).forEach((item) => {
             if (item) {
-                fbs.push((item.row * this.height) + item.col);
+                forbiddenCells.push(item);
             }
         });
-        this.getNeighbors(fbRow, fbCol).forEach((item) => {
-            fcs.push(item);
-        })
-        console.log(fcs);
         const placeMine = () => {
             function check(row, col) {
-                for (let cl of fcs) {
-                    if (cl.row === row && cl.col === col) {
+                for (let cell of forbiddenCells) {
+                    if (cell.row === row && cell.col === col) {
                         return true;
                     }
                 }
@@ -67,11 +58,8 @@ class MineSweeper {
             }
         }
         for (let i = 0; i < this.mineCount; i++) {
-
             placeMine();
         }
-        //console.log(this.forbiddenCell);
-        //console.log(this.getNeighbors(fbRow, fbCol));
 
     };
     getNeighbors = (row, col) => {

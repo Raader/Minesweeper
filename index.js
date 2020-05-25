@@ -22,11 +22,13 @@ const heightInput = document.querySelector("#heightInput");
 const widhtInput = document.querySelector("#widhtInput");
 const mineInput = document.querySelector("#mineInput");
 const generateButton = document.getElementById("generateButton");
-
+let height;
+let width;
+let mineCount;
 let mineSweeper;
 
 function InitGame() {
-    mineSweeper = null;
+
     if (parseInt(mineInput.value) > (heightInput.value * widhtInput.value)) {
         alert("can't generate more than width * height mines");
         return
@@ -40,6 +42,10 @@ function InitGame() {
             mine count:${mineInput.min}-${mineInput.max}`);
         return;
     }
+    mineSweeper = null;
+    height = parseInt(heightInput.value);
+    width = parseInt(widhtInput.value);
+    mineCount = parseInt(mineInput.value);
     generateButtons(heightInput.value, widhtInput.value, gTable);
 
     function onGameOver(result) {
@@ -79,10 +85,6 @@ function InitGame() {
         button.disabled = "disabled";
     }
 
-    function initContextMenus() {
-
-    }
-
     for (let row = 0; row < heightInput.value; row++) {
         for (let col = 0; col < widhtInput.value; col++) {
             buttons[row][col].addEventListener("click", () => {
@@ -90,7 +92,7 @@ function InitGame() {
                 if (mineSweeper) {
                     mineSweeper.openButton(row, col);
                 } else {
-                    mineSweeper = new MineSweeper(widhtInput.value, heightInput.value, parseInt(mineInput.value), onGameOver, onCellOpen, {
+                    mineSweeper = new MineSweeper(width, height, mineCount, onGameOver, onCellOpen, {
                         row: row,
                         col: col
                     });
