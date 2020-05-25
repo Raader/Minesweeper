@@ -50,16 +50,21 @@ function InitGame() {
 
     function onGameOver(result) {
         const delay = 250;
-        for (let row = 0; row < mineSweeper.height; row++) {
-            for (let col = 0; col < mineSweeper.widht; col++) {
-                if (mineSweeper.cells[row][col].isMine) {
-                    buttons[row][col].disabled = "disabled";
-                    buttons[row][col].innerHTML = "💣";
-                    buttons[row][col].style.backgroundColor = "#EC7063";
+
+        function showMines() {
+            for (let row = 0; row < mineSweeper.height; row++) {
+                for (let col = 0; col < mineSweeper.widht; col++) {
+                    if (mineSweeper.cells[row][col].isMine) {
+                        buttons[row][col].disabled = "disabled";
+                        buttons[row][col].innerHTML = "💣";
+                        buttons[row][col].style.backgroundColor = "#EC7063";
+                    }
                 }
             }
         }
+
         if (result) {
+            showMines();
             setTimeout(() => {
                 modal.style.display = "block";
                 modalText.innerHTML = "Lose";
@@ -67,7 +72,7 @@ function InitGame() {
         } else {
             setTimeout(() => {
                 modal.style.display = "block";
-                modalText.innerHTML = "Lose";
+                modalText.innerHTML = "Win";
             }, delay);
         }
     }
